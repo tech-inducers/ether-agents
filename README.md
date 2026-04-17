@@ -1,4 +1,4 @@
-# ether-agents - No Code Agents egenration platofrm within NodeRed
+# ether-agents - No Code Agents generation platofrm
 
 ***  Features 
 * Can generate agents with configuration for LLM and user instruction for model to 
