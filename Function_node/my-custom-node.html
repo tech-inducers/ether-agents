@@ -1,0 +1,211 @@
+<script type="text/html" data-template-name="my-custom-node">
+
+    <!-- Mode selector -->
+    <div class="form-row">
+        <label for="node-input-mode"><i class="fa fa-toggle-on"></i> Mode</label>
+        <select id="node-input-mode" style="width:70%">
+            <option value="json">JSON</option>
+            <option value="text">Text</option>
+        </select>
+    </div>
+
+    <!-- JSON editor row -->
+    <div class="form-row" id="row-json">
+        <label for="node-input-jsonContent" style="vertical-align:top;margin-top:6px">
+            <i class="fa fa-code"></i> JSON
+        </label>
+        <div style="display:inline-block;width:70%;position:relative">
+            <textarea id="node-input-jsonContent"
+                rows="6"
+                style="width:100%;font-family:monospace;font-size:12px;box-sizing:border-box;resize:vertical"
+                placeholder='{"key": "value"}'></textarea>
+            <div style="margin-top:4px;text-align:right">
+                <span id="json-error" style="color:red;font-size:11px;float:left;display:none"></span>
+                <button type="button" id="btn-maximize-json"
+                    style="font-size:11px;padding:2px 8px;cursor:pointer">
+                    <i class="fa fa-expand"></i> Maximize
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Text editor row -->
+    <div class="form-row" id="row-text">
+        <label for="node-input-textContent" style="vertical-align:top;margin-top:6px">
+            <i class="fa fa-font"></i> Text
+        </label>
+        <div style="display:inline-block;width:70%;position:relative">
+            <textarea id="node-input-textContent"
+                rows="6"
+                style="width:100%;font-family:monospace;font-size:12px;box-sizing:border-box;resize:vertical"
+                placeholder="Enter your text message here..."></textarea>
+            <div style="margin-top:4px;text-align:right">
+                <button type="button" id="btn-maximize-text"
+                    style="font-size:11px;padding:2px 8px;cursor:pointer">
+                    <i class="fa fa-expand"></i> Maximize
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Name -->
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="My Custom Node" style="width:70%">
+    </div>
+
+    <!-- Maximize modal overlay -->
+    <div id="maximize-overlay" style="
+        display:none;position:fixed;top:0;left:0;width:100%;height:100%;
+        background:rgba(0,0,0,0.6);z-index:9999;box-sizing:border-box;padding:30px">
+        <div style="background:#fff;border-radius:6px;height:100%;display:flex;flex-direction:column;overflow:hidden">
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 16px;border-bottom:1px solid #ddd;background:#f5f5f5">
+                <span id="modal-title" style="font-weight:600;font-size:14px"></span>
+                <div>
+                    <button type="button" id="btn-modal-format"
+                        style="font-size:12px;padding:3px 10px;cursor:pointer;margin-right:8px">
+                        <i class="fa fa-magic"></i> Format
+                    </button>
+                    <button type="button" id="btn-modal-close"
+                        style="font-size:12px;padding:3px 10px;cursor:pointer">
+                        <i class="fa fa-compress"></i> Done
+                    </button>
+                </div>
+            </div>
+            <textarea id="modal-editor" style="
+                flex:1;width:100%;box-sizing:border-box;border:none;outline:none;
+                padding:16px;font-family:monospace;font-size:13px;resize:none;
+                line-height:1.6"></textarea>
+        </div>
+    </div>
+
+</script>
+
+<script type="text/html" data-help-name="my-custom-node">
+    <p>Injects a <b>JSON</b> object or <b>Text</b> string into <code>msg.payload</code>.</p>
+    <ul>
+        <li><b>JSON mode</b> – payload becomes a parsed JSON object. <code>msg.contentType</code> is set to <code>application/json</code>.</li>
+        <li><b>Text mode</b> – payload becomes a plain string. <code>msg.contentType</code> is set to <code>text/plain</code>.</li>
+    </ul>
+    <p>Click <b>Maximize</b> to open a full-screen editor. In JSON mode, use <b>Format</b> to auto-indent.</p>
+</script>
+
+<script type="text/javascript">
+RED.nodes.registerType('my-custom-node', {
+    category: 'function',
+    color: '#5DCAA5',
+    defaults: {
+        name:        { value: "" },
+        mode:        { value: "json" },
+        jsonContent: { value: '{\n  "key": "value"\n}' },
+        textContent: { value: "" }
+    },
+    inputs:  1,
+    outputs: 1,
+    icon:    "function.png",
+    label: function() {
+        return this.name || ("my-node [" + (this.mode || "json") + "]");
+    },
+    labelStyle: function() {
+        return this.name ? "node_label_italic" : "";
+    },
+
+    oneditprepare: function() {
+        var currentModalTarget = null; // "json" or "text"
+
+        // Show/hide rows based on mode
+        function applyMode() {
+            var mode = $("#node-input-mode").val();
+            if (mode === "json") {
+                $("#row-json").show();
+                $("#row-text").hide();
+            } else {
+                $("#row-json").hide();
+                $("#row-text").show();
+            }
+        }
+        $("#node-input-mode").on("change", applyMode);
+        applyMode();
+
+        // Live JSON validation
+        function validateJson() {
+            var val = $("#node-input-jsonContent").val();
+            try {
+                JSON.parse(val);
+                $("#json-error").hide();
+                $("#node-input-jsonContent").css("border-color", "");
+                return true;
+            } catch(e) {
+                $("#json-error").text(e.message).show();
+                $("#node-input-jsonContent").css("border-color", "red");
+                return false;
+            }
+        }
+        $("#node-input-jsonContent").on("input", validateJson);
+        validateJson();
+
+        // --- Maximize modal ---
+        function openModal(target) {
+            currentModalTarget = target;
+            var isJson = (target === "json");
+            $("#modal-title").text(isJson ? "JSON Editor" : "Text Editor");
+            $("#btn-modal-format").toggle(isJson);
+            var content = isJson
+                ? $("#node-input-jsonContent").val()
+                : $("#node-input-textContent").val();
+            $("#modal-editor").val(content);
+            $("#maximize-overlay").css("display", "block");
+            setTimeout(function() { $("#modal-editor").focus(); }, 50);
+        }
+
+        function closeModal() {
+            var content = $("#modal-editor").val();
+            if (currentModalTarget === "json") {
+                $("#node-input-jsonContent").val(content);
+                validateJson();
+            } else {
+                $("#node-input-textContent").val(content);
+            }
+            $("#maximize-overlay").css("display", "none");
+            currentModalTarget = null;
+        }
+
+        $("#btn-maximize-json").on("click", function() { openModal("json"); });
+        $("#btn-maximize-text").on("click", function() { openModal("text"); });
+
+        $("#btn-modal-close").on("click", closeModal);
+
+        // Format (pretty-print) JSON in modal
+        $("#btn-modal-format").on("click", function() {
+            try {
+                var parsed = JSON.parse($("#modal-editor").val());
+                $("#modal-editor").val(JSON.stringify(parsed, null, 2));
+            } catch(e) {
+                alert("Cannot format: invalid JSON\n" + e.message);
+            }
+        });
+
+        // Close on overlay background click
+        $("#maximize-overlay").on("click", function(e) {
+            if ($(e.target).is("#maximize-overlay")) {
+                closeModal();
+            }
+        });
+
+        // Esc key closes modal
+        $(document).on("keydown.mycustomnode", function(e) {
+            if (e.key === "Escape" && currentModalTarget) {
+                closeModal();
+            }
+        });
+    },
+
+    oneditcancel: function() {
+        $(document).off("keydown.mycustomnode");
+    },
+
+    oneditsave: function() {
+        $(document).off("keydown.mycustomnode");
+    }
+});
+</script>

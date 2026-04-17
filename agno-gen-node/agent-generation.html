@@ -1,0 +1,32 @@
+<script type="text/html" data-template-name="agent-generation">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Node Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-savePath"><i class="fa fa-folder-open"></i> Save Path</label>
+        <input type="text" id="node-input-savePath" placeholder="C:\Users\test">
+    </div>
+    <div class="form-row">
+        <label for="node-input-zipName"><i class="fa fa-file-archive-o"></i> Zip Name</label>
+        <input type="text" id="node-input-zipName" placeholder="agent_bundle">
+    </div>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('agent-generation',{
+        category: 'function',
+        color: '#a6bbcf',
+        defaults: {
+            name: {value:""},
+            savePath: {value:"", required:true},
+            zipName: {value:"agent_bundle", required:true}
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "file.png",
+        label: function() {
+            return this.name || "agent-zip-generator";
+        }
+    });
+</script>

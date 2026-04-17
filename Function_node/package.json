@@ -1,0 +1,11 @@
+{
+  "name": "node-red-contrib-my-custom-node",
+  "version": "1.0.0",
+  "description": "Custom node with JSON and dropdown",
+  "keywords": ["node-red"],
+  "node-red": {
+    "nodes": {
+      "my-custom-node": "my-custom-node.js"
+    }
+  }
+}

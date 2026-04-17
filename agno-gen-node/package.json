@@ -1,0 +1,14 @@
+{
+    "name": "node-red-contrib-agno-agent-gen",
+    "version": "1.1.0",
+    "description": "Generates Agno agents and zips the output",
+    "main": "agent-generation.js",
+    "node-red": {
+        "nodes": {
+            "agent-generation": "agent-generation.js"
+        }
+    },
+    "dependencies": {
+        "adm-zip": "^0.5.10"
+    }
+}
