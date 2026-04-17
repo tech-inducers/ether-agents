@@ -1,6 +1,6 @@
 # Ether-agents : No Code Agents generation platform
 
-Features:
+## Features
 * Can generate agents with configuration for LLM and user instruction for model to 
 perform.
 * user can now provide tools information also within configuration.
@@ -8,12 +8,12 @@ perform.
 * Integration method needs to be defined and integrated with generated code for Node-Red to receive and monitor assurance details.
 * can be designed and used for distribution and local environment.
 
-* Prerequisite
+## Features
 install nodered
 https://github.com/node-red/node-red
 node red custom node deployment
 https://nodered.org/docs/creating-nodes/first-node
-
+## use in NodeRed
 * after successful deployment- Following custom nodes are visiable in NodeRed  function palette.
 
 ----------------------------------------------------------------------------
