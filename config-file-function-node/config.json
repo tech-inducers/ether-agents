@@ -1,0 +1,21 @@
+{
+    "ollama_model": "gemma4:e4b",
+    "manual_context_override": 4096,
+    "dataset_path": "user_instruction.json",
+    "tools": [
+        {
+            "tool name": "CsvTools",
+            "enable_query_csv_file": false,
+            "stream": true,
+            "markdown": true
+        }
+    ],
+    "mqtt": {
+        "url": "mqtt://localhost",
+        "port": 1883,
+        "username": "admin",
+        "password": "password",
+        "topic": "agno/agent/logs/status",
+        "log_level": "DEBUG"
+    }
+}

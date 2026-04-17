@@ -1,0 +1,17 @@
+{
+    "dataset": "File Manager",
+    "items": [
+        {
+            "messages": [
+                {
+                    "role": "system",
+                    "content": "You are a CSVexpert, use  CsvTools and filetools if necessary "
+                },
+                {
+                    "role": "user",
+                    "content": "search for alarm_data.csv and performance_data.csv in base dir, if found read 1st lines of data of each files in a tabular format"
+                }
+            ]
+        }
+    ]
+}
