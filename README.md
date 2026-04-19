@@ -1,4 +1,4 @@
-# Ether-agents : No Code Agent generation platform 
+# Ether-agents : No Code Agent generation platform
 
 ## Features
 * Can generate agents with user provided LLM configuration  user instruction for model to 
@@ -29,5 +29,5 @@ https://nodered.org/docs/creating-nodes/first-node
 
 * sample configuration file can be found config-file-function-node
 
-**** currently we are supporting Agno only, we are working on to support other open source framework to be included in feture release
+**** currently we are supporting Agno only, we are working available open source framework to be included in feture release
 
