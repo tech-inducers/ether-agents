@@ -1,20 +1,20 @@
-# Ether-agents : No Code Agents generation platform
+# Ether-agents : No Code Agent generation platform 
 
 ## Features
-* Can generate agents with configuration for LLM and user instruction for model to 
+* Can generate agents with user provided LLM configuration  user instruction for model to 
 perform.
 * user can now provide tools information also within configuration.
-* zip file with configuration.json, user-instruction.json and agent.py will be generated specified location provided.
-* Integration method needs to be defined and integrated with generated code for Node-Red to receive and monitor assurance details.
-* can be designed and used for distribution and local environment.
+* Zip file including user provided configuration.json, user-instruction.json and generated agent.py will be generated specified location provided.
+* Integration method needs to be defined and integrated with generated code for Node-Red to receive and monitor real time time feed.
+* Can be designed and used for distribution and local environment.
 
-## Features
+## Prerequisite
 install nodered
 https://github.com/node-red/node-red
 node red custom node deployment
 https://nodered.org/docs/creating-nodes/first-node
 ## use in NodeRed
-* after successful deployment- Following custom nodes are visiable in NodeRed  function palette.
+* after successful deployment- Following custom nodes will be included in Node-Red  function palette.
 
 ----------------------------------------------------------------------------
 
@@ -29,5 +29,5 @@ https://nodered.org/docs/creating-nodes/first-node
 
 * sample configuration file can be found config-file-function-node
 
-**** currently we are supporting agno only -will support all other framework in near future
+**** currently we are supporting Agno only, we are working on to support other open source framework to be included in feture release
 
