@@ -24,8 +24,6 @@ https://ollama.com/
 ----------------------------------------------------------------------------
 
 ![](https://raw.githubusercontent.com/tech-inducers/ether/main/images/custom_nodes.png)
-![](https://raw.githubusercontent.com/tech-inducers/ether/main/images/use_of_agents.png)
-
 ![](https://raw.githubusercontent.com/tech-inducers/ether/main/images/local_exec.png)
 
 local_exec
