@@ -42,5 +42,6 @@ After successfully configuration and validation - agent is ready to run in local
 * sample configuration file can be found config-file-function-node
 
 Download Flow.json including generate, validate and run configuration - import configuration in NodeRed
+https://github.com/tech-inducers/ether/tree/main/idea/marketplace/local_env
 
 **** currently we are supporting Agno, we are working on available open source framework to be included in future release.
