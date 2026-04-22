@@ -5,11 +5,11 @@
             "messages": [
                 {
                     "role": "system",
-                    "content": "You are a CSVexpert, use  CsvTools and filetools if necessary "
+                    "content": "You are a file  expert, use  CsvTools,ShellTools and fileTools if necessary "
                 },
                 {
                     "role": "user",
-                    "content": "search for alarm_data.csv and performance_data.csv in base dir, if found read 1st lines of data of each files in a tabular format"
+                    "content": "pls list file in base directory and find test.csv, if found read rows in a tabular format "
                 }
             ]
         }

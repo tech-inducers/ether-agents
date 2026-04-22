@@ -1,0 +1,13 @@
+agno
+ollama
+sqlparse
+pandas>=1.5.0
+numpy>=1.23.0
+ddgs
+openai
+xgboost>=1.7.0
+duckduckgo-search
+pandas
+duckdb
+requests
+ sqlite3

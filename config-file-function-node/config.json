@@ -1,21 +1,30 @@
 {
-    "ollama_model": "gemma4:e4b",
+    "model": "gemma4:e4b",
+    "inference engine": "ollama",
     "manual_context_override": 4096,
     "dataset_path": "user_instruction.json",
     "tools": [
         {
+            "tool name": "ShellTools"
+        },
+        {
+            "tool name": "DuckDuckGoTools"
+        },
+        {
             "tool name": "CsvTools",
             "enable_query_csv_file": false,
-            "stream": true,
-            "markdown": true
+            "csvs": [
+                "alarm_data.csv",
+                "performance_data.csv",
+                "test.csv"
+            ]
+        },
+        {
+            "tool name": "FileTools"
+        },
+        {
+            "tool name": "PythonTools"
         }
     ],
-    "mqtt": {
-        "url": "mqtt://localhost",
-        "port": 1883,
-        "username": "admin",
-        "password": "password",
-        "topic": "agno/agent/logs/status",
-        "log_level": "DEBUG"
-    }
+    "markdown": true
 }
