@@ -35,7 +35,7 @@ module.exports = function(RED) {
 
                     // Tool logic
                     const toolLib = {
-                        "CsvTools": { "import": "from agno.tools.csv_toolkit import CsvTools", "init": "CsvTools(csvs=[base_dir / 'alarm_data.csv', base_dir / 'performance_data.csv'], enable_query_csv_file=False)" },
+                        "CsvTools": { "import": "from agno.tools.csv_toolkit import CsvTools", "init": "CsvTools(csvs=[base_dir / 'test.csv'], enable_query_csv_file=False)" },
                         "FileTools": { "import": "from agno.tools.file import FileTools", "init": "FileTools(base_dir=base_dir)" },
                         "ShellTools": { "import": "from agno.tools.shell import ShellTools", "init": "ShellTools(base_dir=base_dir)" },
                         "DuckDuckGoTools": { "import": "from agno.tools.duckduckgo import DuckDuckGoTools", "init": "DuckDuckGoTools()" },
